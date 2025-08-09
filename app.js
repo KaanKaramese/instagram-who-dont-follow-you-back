@@ -72,25 +72,5 @@ async function showUnfollowers(followersSet, followingSet) {
   }
 }
 
-document.getElementById('analyzeBtn').addEventListener('click', async () => {
-  const followersFile = document.getElementById('followersFile').files[0];
-  const followingFile = document.getElementById('followingFile').files[0];
-  if (!followersFile || !followingFile) {
-    alert('Please upload both followers_1.json and following.json files.');
-    return;
-  }
-  try {
-    const [followersText, followingText] = await Promise.all([
-      followersFile.text(),
-      followingFile.text()
-    ]);
-    const followersJson = JSON.parse(followersText);
-    const followingJson = JSON.parse(followingText);
-    const followersSet = parseFollowers(followersJson);
-    const followingSet = parseFollowing(followingJson);
-    document.getElementById('results').style.display = '';
-    await showUnfollowers(followersSet, followingSet);
-  } catch (e) {
-    alert('Error parsing files. Please make sure you selected the correct Instagram data files.');
-  }
-});
+
+// No event handler here. Use docs/app.js for the web app logic.
