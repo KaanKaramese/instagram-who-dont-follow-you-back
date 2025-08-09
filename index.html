@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Unfollowers Checker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Instagram Unfollowers Checker</h1>
+    <section class="instructions">
+      <h2>How to see who doesn't follow you back</h2>
+      <ol>
+        <li>Go to Instagram on your computer and open <b>Settings</b> &rarr; <b>Accounts Center</b> &rarr; <b>Your information and permissions</b> &rarr; <b>Download your information</b>.</li>
+        <li>Request your data export. When you receive the ZIP file, extract it.</li>
+        <li>Find <code>followers_1.json</code> and <code>following.json</code> in <code>connections/followers_and_following/</code>.</li>
+        <li>Upload both files below to see who you follow that doesn't follow you back.</li>
+      </ol>
+    </section>
+    <section class="upload-section">
+      <label>Followers file (followers_1.json): <input type="file" id="followersFile" accept="application/json"></label><br>
+      <label>Following file (following.json): <input type="file" id="followingFile" accept="application/json"></label><br>
+      <button id="analyzeBtn">Show Unfollowers</button>
+    </section>
+    <section id="results" class="results-section" style="display:none;">
+      <h2>People you follow who don't follow you back:</h2>
+      <div id="unfollowersList" class="unfollowers-list"></div>
+    </section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
