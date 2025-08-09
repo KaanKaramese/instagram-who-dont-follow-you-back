@@ -43,8 +43,9 @@ async function fetchProfilePic(username) {
 }
 
 async function showUnfollowers(followersSet, followingSet) {
-  const notFollowingBack = Array.from(followingSet).filter(username => !followersSet.has(username));
+  const notFollowingBack = Array.from(followingSet).filter((username, i, arr) => !followersSet.has(username) && arr.indexOf(username) === i);
   const listDiv = document.getElementById('unfollowersList');
+  // Clear previous results
   listDiv.innerHTML = '';
   if (notFollowingBack.length === 0) {
     listDiv.innerHTML = '<p>Everyone you follow follows you back. 🎉</p>';
@@ -72,14 +73,19 @@ async function showUnfollowers(followersSet, followingSet) {
   }
 }
 
-document.getElementById('analyzeBtn').addEventListener('click', async () => {
-  const followersFile = document.getElementById('followersFile').files[0];
-  const followingFile = document.getElementById('followingFile').files[0];
-  if (!followersFile || !followingFile) {
-    alert('Please upload both followers_1.json and following.json files.');
-    return;
-  }
+
+const analyzeBtn = document.getElementById('analyzeBtn');
+analyzeBtn.onclick = async () => {
+  if (analyzeBtn.disabled) return;
+  analyzeBtn.disabled = true;
   try {
+    const followersFile = document.getElementById('followersFile').files[0];
+    const followingFile = document.getElementById('followingFile').files[0];
+    if (!followersFile || !followingFile) {
+      alert('Please upload both followers_1.json and following.json files.');
+      analyzeBtn.disabled = false;
+      return;
+    }
     const [followersText, followingText] = await Promise.all([
       followersFile.text(),
       followingFile.text()
@@ -93,4 +99,5 @@ document.getElementById('analyzeBtn').addEventListener('click', async () => {
   } catch (e) {
     alert('Error parsing files. Please make sure you selected the correct Instagram data files.');
   }
-});
+  analyzeBtn.disabled = false;
+};
